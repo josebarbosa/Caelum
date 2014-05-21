@@ -171,22 +171,22 @@ public class Salario {
     */
     
     //Busca salário base para efetuar cálculos
-    public double calculaVencimentoBasico(Integer cargo, Integer nivel) throws SQLException{
+    public void calculaVencimentoBasico(Integer cargo, Integer nivel) throws SQLException{
         Connection con = new ConnectionFactory().getConnection();
         Integer id;
-        double resposta;
         id = (15 * cargo) + nivel;
         PreparedStatement stmt = con.prepareStatement("select valor from vencimentos where id=" + id + " limit 1");
         
         ResultSet rs = stmt.executeQuery();
         
         rs.next();
-        resposta = rs.getDouble("valor");
-        return resposta;        
+        contraCheque.setVencimentoBasico(rs.getDouble("valor"));
+        stmt.close();
+        rs.close();       
     }
     
     //não precisa passar as variáveis como parâmetro???
-    public double calculaGampu(){
+    public void calculaGampu(){
         
     }
     
